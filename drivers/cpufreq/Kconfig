@@ -201,15 +201,6 @@ config CPU_FREQ_DEFAULT_GOV_SMARTMAX
         help
            Use the CPUFreq governor 'smartmax' as default.
 
-config CPU_FREQ_DEFAULT_GOV_INTELLIACTIVE
-	bool "intelliactive"
-	select CPU_FREQ_GOV_INTELLIACTIVE
-	help
-	  Use the CPUFreq governor 'intelliactive' as default. This allows
-	  you to get a full dynamic cpu frequency capable system by simply
-	  loading your cpufreq low-level hardware driver, using the
-	  'interactive' governor for latency-sensitive workloads.
-
 config CPU_FREQ_DEFAULT_GOV_INTERACTIVEX
 	bool "interactivex"
 	select CPU_FREQ_GOV_INTERACTIVEX
@@ -230,8 +221,6 @@ config CPU_FREQ_DEFAULT_GOV_BIOSHOCK
 	help
 	  Default governor of BioShock kernel
 
-endchoice
-
 config CPU_FREQ_DEFAULT_GOV_ELEMENTALX
 	bool "elementalx"
 	select CPU_FREQ_GOV_ELEMENTALX
@@ -239,6 +228,7 @@ config CPU_FREQ_DEFAULT_GOV_ELEMENTALX
 	help
 	  Use the CPUFreq governor 'elementalx' as default.
 
+endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
 	tristate "'performance' governor"
@@ -344,20 +334,6 @@ config CPU_FREQ_GOV_ELEMENTALX
 
 	  If in doubt, say N.
 
-
-config CPU_FREQ_GOV_ELEMENTALX
-	tristate "'elementalx' cpufreq policy governor"
-	select CPU_FREQ_TABLE
-	help
-	  'elementalx' - 
-	   This driver adds a dynamic cpufreq policy governor.
-	   To compile this driver as a module, choose M here: 
-	   the module will be called cpufreq_elementalx. For 
-	   details, take a look at 
-	   linux/Documentation/cpu-freq.
-	   
-	  If in doubt, say N.
-
 config CPU_FREQ_GOV_CONSERVATIVE
 	tristate "'conservative' cpufreq governor"
 	depends on CPU_FREQ
@@ -447,8 +423,6 @@ config INPUT_BOOST_FREQ
 
 endif
 
-comment "CPU frequency scaling drivers"
-
 config CPU_FREQ_GOV_ADAPTIVE
 	tristate "'adaptive' cpufreq policy governor"
 	default y
@@ -470,41 +444,6 @@ config CPU_FREQ_GOV_ADAPTIVE
 	  For details, take a look at linux/Documentation/cpu-freq.
 
 	  If in doubt, say N.
-
-config CPU_FREQ_GOV_IMPULSE
-	tristate "'impulse' cpufreq policy governor"
-	help
-	  'impulse' - This driver adds a dynamic cpufreq policy governor
-	  designed for latency-sensitive workloads.
-
-	  If in doubt, say N.
-
-config CPU_FREQ_GOV_INTELLIACTIVE
-	tristate "intelliactive"
-	help
-		'intelliactive' - This driver adds a dynamic cpufreq policy governor
-		designed for latency-sensitive workloads.
-		This governor attempts to reduce the latency of clock
-		increases so that the system is more responsive to
-		interactive workloads.
-
-		To compile this driver as a module, choose M here: the
-		module will be called cpufreq_interactive.
-		For details, take a look at linux/Documentation/cpu-freq.
-		If in doubt, say N.
-
-config CPU_FREQ_GOV_SCHED
-	bool "'sched' cpufreq governor"
-	depends on CPU_FREQ
-	depends on SMP
-	select CPU_FREQ_GOV_COMMON
-	help
-	  'sched' - this governor scales cpu frequency from the
-	  scheduler as a function of cpu capacity utilization. It does
-	  not evaluate utilization on a periodic basis (as ondemand
-	  does) but instead is event-driven by the scheduler.
-
-	  If in doubt, say N.
 	  
 config CPU_FREQ_GOV_INTERACTIVEX
 	tristate "'interactivex' cpufreq governor"
@@ -520,8 +459,6 @@ config CPU_FREQ_GOV_INTERACTIVEX
 	  module will be called cpufreq_interactivex.
 
 	  If in doubt, say N.
-
-comment "CPU frequency scaling drivers"
 	  
 config CPU_FREQ_GOV_SMARTMAX_EPS
         tristate "'smartmax_eps' cpufreq governor"
@@ -576,6 +513,7 @@ config CPU_FREQ_GOV_LIONHEART
         help
            lionheart' - a "smart" optimized governor!
            If in doubt, say N.
+
 config CPU_FREQ_GOV_DESPAIR
 	tristate "'despair' cpufreq governor"
 	depends on CPU_FREQ
@@ -585,6 +523,8 @@ config CPU_FREQ_GOV_BIOSHOCK
 	depends on CPU_FREQ
 	help
 	  'bioshock' - More aggressive version of conservative
+
+comment "CPU frequency scaling drivers"
 
 config CPU_BOOST
 	tristate "Event base short term CPU freq boost"
